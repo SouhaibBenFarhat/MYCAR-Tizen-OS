@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<title>Halo - Mobile Template</title>
+<meta content="IE=edge" http-equiv="x-ua-compatible">
+<meta
+	content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"
+	name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="yes" name="apple-touch-fullscreen">
+<script type="text/javascript">
+	window.addEventListener('tizenhwkey', function onTizenHwKey(e) {
+		if (e.keyName === 'back') {
+			window.history.back();
+
+		}
+	});
+</script>
+<!-- Fonts -->
+<link
+	href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700'
+	rel='stylesheet' type='text/css'>
+<!-- Icons -->
+<link
+	href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
+	media="all" rel="stylesheet" type="text/css">
+<!-- Styles -->
+<link href="../css/keyframes.css" rel="stylesheet" type="text/css">
+<link href="../css/materialize.min.css" rel="stylesheet" type="text/css">
+<link href="../css/swiper.css" rel="stylesheet" type="text/css">
+<link href="../css/swipebox.min.css" rel="stylesheet" type="text/css">
+<link href="../css/style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body ng-app="comparator_angular" ng-controller="comparatorController">
+	<div class="m-scene" id="main">
+		<!-- Main Container -->
+
+		<!-- Sidebars -->
+		<!-- Right Sidebar -->
+		<!-- Left Sidebar -->
+		<ul id="slide-out-left" class="side-nav collapsible">
+			<li>
+				<div class="sidenav-header primary-color">
+					<div class="nav-social"></div>
+					<div class="nav-avatar">
+						<img class="circle avatar" id="profile_picture"
+							src="../img/user.jpg" alt="">
+						<div class="avatar-body">
+							<h3></h3>
+							<p id="user">Material Mobile</p>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li><a href="index.html" class="no-child"><i class="ion-android-home"></i>
+					HOME</a></li>
+			<li><a href="brand_list.html" class="no-child"><i
+					class="ion-android-playstore"></i> NEW</a></li>
+			<li><a href="user_profile.html" class="no-child"><i
+					class="ion-android-contact"></i> PROFILE</a></li>
+			<li><a href="annonce.html" class="no-child"><i
+					class="ion-model-s"></i> USED </a></li>
+			<li><a href="user_favoris.html" class="no-child"><i
+					class="ion-android-star"></i> FAVORIS</a></li>
+					<li><a href="user_post.html" class="no-child"><i
+					class="ion-clipboard"></i> MY POSTS</a></li>
+					<li><a href="savedAnn.html" class="no-child"><i
+					class="ion-ios-download"></i> SAVED POSTS</a></li>
+
+
+		</ul>
+
+		<!-- End of Sidebars -->
+
+		<!-- Page Content -->
+		<div id="content">
+
+			<!-- Toolbar -->
+			<div id="toolbar" class="halo-nav box-shad-none">
+				<div class="open-left" id="open-left"
+					data-activates="slide-out-left">
+					<i class="ion-android-menu"></i>
+				</div>
+				<span class="title none"></span>
+
+			</div>
+
+			<!-- Hero Header -->
+			<div class="h-banner animated fadeindown">
+				<div class="parallax bg-3">
+					<div class="floating-button animated bouncein delay-3">
+						<span
+							class="btn-floating resize btn-large waves-effect waves-light accent-color btn z-depth-1">
+							<i class="ion-android-options"></i>
+						</span>
+					</div>
+					<div class="banner-title"></div>
+				</div>
+			</div>
+
+			<!-- Activity Content -->
+			<div class="animated fadeinup delay-1">
+
+				<div class="p-t-20">
+					<ul class="tabs">
+						<li class="tab"><a class="active" href="#test1">{{firstGammeBrand.name}}</a></li>
+						<li class="tab"><a href="#test2">{{secondGammeBrand.name}}</a></li>
+					</ul>
+				</div>
+
+				<div id="test1" ng-init="loadFirstGamme()">
+					<div class="swiper-slide swiper-slide-active"
+						data-swiper-slide-index="1" style="width: 295px;">
+						<img ng-src="{{firstGamme.picture_url}}" alt="">
+					</div>
+					<div class="container activity p-l-r-20">
+						<div class="row m-l-0">
+							<h4 class="uppercase ng-binding">{{firstGamme.gamme}}</h4>
+							<br>
+							<p>{{firstGamme.prix}} DTN</p>
+							<div class="activity animated fadeinright delay-1">
+								<p></p>
+							</div>
+							<h5>Description</h5>
+							<p class="text-flow">{{firstGamme.description}}</p>
+							<div class="contact">
+								<img alt="" ng-src="{{firstGammeBrand.logo}}">
+								<p>
+									{{firstGammeBrand.name}} <i class=""></i>
+								</p>
+							</div>
+							<div class="dot z-depth-1"></div>
+							<div class="comments">
+								<h3 class="uppercase"></h3>
+								<ul class="comments-list">
+									<li>
+										<div class="subtotal">
+											<h6>
+												<b>FEATURES</b> <span class="right"></span>
+											</h6>
+											<span>BODY TYPE <span class="right"><b>{{firstGammeCaracteristique.carrosserie}}</b></span></span>
+											<span>PLACE NUMBER <span class="right">{{firstGammeCaracteristique.nombre_place}}</span></span>
+											<span>DOORS <span class="right">{{firstGammeCaracteristique.nombre_porte}}</span></span>
+											<span>LENGTH <span class="right">{{firstGammeCaracteristique.longueur}}</span></span>
+											<span>WIDTH <span class="right">{{firstGammeCaracteristique.largeur}}</span>
+											</span> <span>HEIGHT <span class="right">{{firstGammeCaracteristique.hauteur}}</span></span>
+											<span>TRUNK SIZE <span class="right">{{firstGammeCaracteristique.volume_coffre}}</span>
+											</span>
+										</div>
+									</li>
+									<li>
+										<div class="subtotal">
+											<h6>
+												<b>ENGINE</b> <span class="right"></span>
+											</h6>
+											<span>CYLINDER <span class="right">{{firstGammeMotorisation.nombre_cylindre}}</span></span>
+											<span>FUEL<span class="right">{{firstGammeMotorisation.energie}}</span></span>
+											<span>TAX POWER <span class="right">{{firstGammeMotorisation.puissance_fiscal}}</span>
+											</span> <span>HORSE POWER <span class="right">{{firstGammeMotorisation.puissance_chdin}}</span></span>
+											<span>TORQUE <span class="right">{{firstGammeMotorisation.couple}}</span></span>
+											<span>ENGINE SIZE <span class="right">{{firstGammeMotorisation.cylindree}}</span>
+											</span> <span>URBAN CONSUMPTION <span class="right">{{firstGammeMotorisation.consommation_urbaine}}</span></span>
+											<span>MIXED CONSUMPTION <span class="right">{{firstGammeMotorisation.consommation_mixte}}</span></span>
+											<span>0 - 100 <span class="right">{{firstGammeMotorisation.consommation_mixte}}</span></span>
+											<span>TOP SPEED <span class="right">{{firstGammeMotorisation.vitesse_max}}</span></span>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div id="test2" ng-init="loadSecondGamme()">
+					<div class="swiper-slide swiper-slide-active"
+						data-swiper-slide-index="1" style="width: 295px;">
+						<img ng-src="{{secondGamme.picture_url}}" alt="">
+					</div>
+					<div class="container activity p-l-r-20">
+						<div class="row m-l-0">
+							<h4 class="uppercase ng-binding">{{secondGamme.gamme}}</h4>
+							<br>
+							<p>{{secondGamme.prix}} DTN</p>
+							<div class="activity animated fadeinright delay-1">
+								<p></p>
+							</div>
+							<h5>Description</h5>
+							<p class="text-flow">{{secondGamme.description}}</p>
+							<div class="contact">
+								<img alt="" ng-src="{{secondGammeBrand.logo}}">
+								<p>
+									{{secondGammeBrand.name}} <i class=""></i>
+								</p>
+							</div>
+							<div class="dot z-depth-1"></div>
+							<div class="comments">
+								<h3 class="uppercase"></h3>
+								<ul class="comments-list">
+									<li>
+										<div class="subtotal">
+											<h6>
+												<b>FEATURES</b> <span class="right"></span>
+											</h6>
+											<span>BODY TYPE <span class="right"><b>{{secondGammeCaracteristique.carrosserie}}</b></span></span>
+											<span>PLACE NUMBER <span class="right">{{secondGammeCaracteristique.nombre_place}}</span></span>
+											<span>DOORS <span class="right">{{secondGammeCaracteristique.nombre_porte}}</span></span>
+											<span>LENGTH <span class="right">{{secondGammeCaracteristique.longueur}}</span></span>
+											<span>WIDTH <span class="right">{{secondGammeCaracteristique.largeur}}</span>
+											</span> <span>HEIGHT <span class="right">{{secondGammeCaracteristique.hauteur}}</span></span>
+											<span>TRUNK SIZE <span class="right">{{secondGammeCaracteristique.volume_coffre}}</span>
+											</span>
+										</div>
+									</li>
+									<li>
+										<div class="subtotal">
+											<h6>
+												<b>ENGINE</b> <span class="right"></span>
+											</h6>
+											<span>CYLINDER <span class="right">{{secondGammeMotorisation.nombre_cylindre}}</span></span>
+											<span>FUEL<span class="right">{{secondGammeMotorisation.energie}}</span></span>
+											<span>TAX POWER <span class="right">{{secondGammeMotorisation.puissance_fiscal}}</span>
+											</span> <span>HORSE POWER <span class="right">{{secondGammeMotorisation.puissance_chdin}}</span></span>
+											<span>TORQUE <span class="right">{{secondGammeMotorisation.couple}}</span></span>
+											<span>ENGINE SIZE <span class="right">{{secondGammeMotorisation.cylindree}}</span>
+											</span> <span>URBAN CONSUMPTION <span class="right">{{secondGammeMotorisation.consommation_urbaine}}</span></span>
+											<span>MIXED CONSUMPTION <span class="right">{{secondGammeMotorisation.consommation_mixte}}</span></span>
+											<span>0 - 100 <span class="right">{{secondGammeMotorisation.consommation_mixte}}</span></span>
+											<span>TOP SPEED <span class="right">{{secondGammeMotorisation.vitesse_max}}</span></span>
+										</div>
+									</li>
+								</ul>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+				<!-- Footer -->
+				<footer class="page-footer primary-color">
+					<div class="container">
+						<div class="row">
+							<div class="col s12">
+								<p class="center-align grey-text text-lighten-4"></p>
+								<div class="center-align">
+									
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="footer-copyright blue darken-1">
+						<div class="container">
+							2016 Codnauts <a class="grey-text text-lighten-4 right" href="#!">Privacy
+								Policy</a>
+						</div>
+					</div>
+				</footer>
+
+			</div>
+		</div>
+
+	</div>
+	<!-- End of Page Content -->
+
+	</div>
+	<!-- End of Page Container -->
+
+	<script type="text/javascript">
+		var profilePicture = document.getElementById('profile_picture');
+		var username = document.getElementById('user');
+		var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+		profilePicture.src = currentUser.profilePictureUri;
+		username.innerHTML = currentUser.email;
+	</script>
+	<script src="../js/assets/jquery-2.1.0.min.js"></script>
+	<script src="../js/assets/jquery.swipebox.min.js"></script>
+	<script src="../js/assets/materialize.min.js"></script>
+	<script src="../js/assets/swiper.min.js"></script>
+	<script src="../js/assets/jquery.mixitup.min.js"></script>
+	<script src="../js/assets/masonry.min.js"></script>
+	<script src="../js/assets/chart.min.js"></script>
+	<script src="../js/assets/functions.js"></script>
+	<script src="../js/app/angular/angular.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.4.2/angular-ui-router.js"></script>
+	<script type="text/javascript" src="../js/app/utils/URLS.js"></script>
+	<script type="text/javascript"
+		src="../js/app/angular/comparator_angular.js"></script>
+</body>
+</html>

@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<title>Halo - Mobile Template</title>
+<meta content="IE=edge" http-equiv="x-ua-compatible">
+<meta
+	content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"
+	name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="yes" name="apple-touch-fullscreen">
+<script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
+<script>
+	var config = {
+		apiKey : "AIzaSyCjzC9W7xXa0WemOZ76r155Ua_5j1_ytRE",
+		authDomain : "carsstore-1c8c5.firebaseapp.com",
+		databaseURL : "https://carsstore-1c8c5.firebaseio.com",
+		storageBucket : "carsstore-1c8c5.appspot.com",
+		messagingSenderId : "1044306183712"
+	};
+	firebase.initializeApp(config);
+</script>
+
+<script type="text/javascript">
+	window.addEventListener('tizenhwkey', function onTizenHwKey(e) {
+		if (e.keyName === 'back') {
+			document.getElementById('modal3').setAttribute("style",
+					"z-index: 1003; display: block; opacity: 1; bottom: 0px;");
+
+		}
+	});
+</script>
+
+
+
+<!-- Fonts -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link
+	href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700'
+	rel='stylesheet' type='text/css'>
+<!-- Icons -->
+<link
+	href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
+	media="all" rel="stylesheet" type="text/css">
+<!-- Styles -->
+<link href="../css/keyframes.css" rel="stylesheet" type="text/css">
+<link href="../css/materialize.min.css" rel="stylesheet" type="text/css">
+<link href="../css/swiper.css" rel="stylesheet" type="text/css">
+<link href="../css/swipebox.min.css" rel="stylesheet" type="text/css">
+<link href="../css/style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body onload="initHome()">
+	<div ng-app="home_angular" ng-controller="homeController">
+		<!-- Main Container -->
+		<!-- Sidebars -->
+		<!-- Right Sidebar -->
+
+		<ul id="slide-out" class="side-nav">
+
+			<!-- Tabs -->
+			<li>
+				<ul class="tabs">
+					<li class="tab col s3"><a class="active" href="#sidebar1">Filter</a></li>
+
+				</ul>
+			</li>
+			<li class="sidenav-header">
+				<!-- Srearch bar -->
+				<nav class="transparent no-shadow">
+					<div class="nav-wrapper">
+						<form class="ng-pristine ng-valid">
+							<div class="input-field">
+								<input id="search" type="search" required=""
+									ng-model="filterBrandName"> <label for="search"
+									class=""><i class="ion-android-search"></i></label> <i
+									class="ion-android-close"></i>
+							</div>
+						</form>
+					</div>
+				</nav>
+			</li>
+			<li id="sidebar1" class="p-20" ng-init="loadBrands()">
+				<!-- Twitter -->
+				<div class="twitter">
+					<h6 class="follow-us" style="margin-bottom: 30px;">Select
+						Makes</h6>
+
+
+
+
+					<ul class="comments-list">
+						<li ng-click="setSelectedBrand(b)"
+							ng-repeat="b in brands | filter:{name:filterBrandName} track by $index"><img
+							ng-src="{{b.logo}}" alt="" style="margin-top: -8px;"
+							class="avatar circle">
+							<div class="comment-body" id="{{b.id}}">
+
+								<p>{{b.name}}</p>
+							</div></li>
+
+					</ul>
+
+
+				</div> <!-- Facebook -->
+				<div class="facebook" ng-init="loadBodyCars()">
+					<h6 class="follow-us">Select Body Type</h6>
+					<div class="face-notification" ng-repeat="bc in bodyCars">
+						<img style="border-radius: 25px; background: #73AD21;"
+							ng-src="{{bc.logo}}" ng-click="setSelectedBodyCar(bc)" alt=""
+							class="cricle" id="{{bc.body}}">
+						<div>
+							<p>{{bc.body}}</p>
+							<span></span> <span class="small"></span>
+						</div>
+					</div>
+				</div>
+				<div class="twitter"></div>
+				<div class="twitter">
+					<h6 class="follow-us">Fuel Type</h6>
+					<span class="small"><label></label></span>
+
+
+					<div class="chat-sidebar" ng-click="setSelectedFuel('ESSENCE')">
+						<div class="chat-img">
+							<img src="../img/fuel.png" id="ESSENCE"
+								style="border-radius: 25px; background: #ffffff; padding: 5px;"
+								alt="" class="cricle">
+						</div>
+						<div class="chat-message">
+							<p></p>
+							<span>Petrol</span> <span class="small"></span>
+						</div>
+					</div>
+					<div class="chat-sidebar" ng-click="setSelectedFuel('DIESEL')">
+						<div class="chat-img">
+							<img src="../img/fuel.png" id="DIESEL"
+								style="border-radius: 25px; background: #ffffff; padding: 5px;"
+								alt="" class="cricle">
+						</div>
+						<div class="chat-message">
+							<p></p>
+							<span>Diesel</span> <span class="small"></span>
+						</div>
+					</div>
+					<div class="chat-sidebar" ng-click="setSelectedFuel('HYBRID')">
+						<div class="chat-img">
+							<img src="../img/fuel.png" id="HYBRID"
+								style="border-radius: 25px; background: #ffffff; padding: 5px;"
+								alt="" class="cricle">
+						</div>
+						<div class="chat-message">
+							<p></p>
+							<span>Hybrid</span> <span class="small"></span>
+						</div>
+					</div>
+
+				</div>
+				<div class="twitter">
+					<h6 class="follow-us">Price Range</h6>
+					<span class="small"><label>(00,000 DTN)</label></span>
+
+
+					<div class="input-field animated fadeinright" ng-show="!noLimit">
+						<input id="minPrice" type="number" ng-model="minPrice"
+							class="validate"> <label for="minPrice">Minimum
+							Price </label>
+					</div>
+					<div class="input-field animated fadeinright" ng-show="!noLimit">
+						<input id="maxPrice" type="number" ng-model="maxPrice"
+							class="validate"> <label for="maxPrice">Maximum
+							Price </label>
+					</div>
+					<p class="remember">
+						<input type="checkbox" id="noLimitCheck"
+							ng-click="noLimit = !noLimit" style="display: none;" /> <label
+							for="noLimitCheck">No Limit</label>
+					</p>
+				</div> <a ng-click="runFilter()" style="color: #ffffff"
+				class="waves-effect waves-light btn-large accent-color width-100 m-b-20 animated bouncein delay-4"
+				href="#">FIND</a>
+			</li>
+
+		</ul>
+		<!-- Left Sidebar -->
+		<ul id="slide-out-left" class="side-nav collapsible">
+			<li>
+				<div class="sidenav-header primary-color">
+					<div class="nav-social"></div>
+					<div class="nav-avatar">
+						<img class="circle avatar" id="profile_picture"
+							src="../img/user.jpg" alt="">
+						<div class="avatar-body">
+							<h3></h3>
+							<p id="user">Material Mobile</p>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li><a href="index.html" class="no-child"><i class="ion-android-home"></i>
+					HOME</a></li>
+			<li><a href="brand_list.html" class="no-child"><i
+					class="ion-android-playstore"></i> NEW</a></li>
+			<li><a href="user_profile.html" class="no-child"><i
+					class="ion-android-contact"></i> PROFILE</a></li>
+			<li><a href="annonce.html" class="no-child"><i
+					class="ion-model-s"></i> USED </a></li>
+			<li><a href="user_favoris.html" class="no-child"><i
+					class="ion-android-star"></i> FAVORIS</a></li>
+					<li><a href="user_post.html" class="no-child"><i
+					class="ion-clipboard"></i> MY POSTS</a></li>
+					<li><a href="savedAnn.html" class="no-child"><i
+					class="ion-ios-download"></i> SAVED POSTS</a></li>
+
+
+		</ul>
+
+		<!-- End of Sidebars -->
+
+		<!-- Page Content -->
+		<div id="content">
+			<!-- Toolbar -->
+			<div id="toolbar" class="halo-nav box-shad-none">
+				<div class="open-left" id="open-left"
+					data-activates="slide-out-left">
+					<i class="ion-android-menu"></i>
+				</div>
+				<span class="title none"></span>
+<!-- 				<div class="open-right" id="open-right" data-activates="slide-out"> -->
+<!-- 					<i class="ion-android-search"></i> -->
+<!-- 				</div> -->
+			</div>
+
+			<div class="h-banner animated fadeindown">
+				<div class="parallax bg-2">
+
+					<div class="banner-title"></div>
+				</div>
+			</div>
+
+
+
+
+			<!-- Main Content -->
+			<div class="animated fadeinup">
+
+				<div class="col s12 center-align">
+					<div class="col s12 center-align p-20">
+
+						<i id="loadingIndicator" ng-hide="show"
+							class="fa fa-circle-o-notch fa-spin" style="font-size: 24px"></i>
+					</div>
+				</div>
+
+<!-- 				<div class="row"> -->
+<!-- 					<div class="col s12 center-align"> -->
+<!-- 						<div class="col s12 center-align p-20"> -->
+<!-- 							<div class="card-panel animated fadein delay-2" -->
+<!-- 								style="border-style: solid; border-width: 1px; border-color: #d90000;"> -->
+<!-- 								<h4 style="color: black;"> -->
+<!-- 									<b>FIND THE BEST ONE</b> -->
+<!-- 								</h4> -->
+<!-- 								<div class="input-field" style="margin-bottom: 20px;"> -->
+<!-- 									<input class="validate" id="car_name" type="password"> -->
+<!-- 									<label style="color: black;" for="car_name">Type car -->
+<!-- 										name, e.g Audi A3</label> -->
+<!-- 								</div> -->
+<!-- 								<a -->
+<!-- 									class="waves-effect waves-light btn-large accent-color width-100 m-b-20 animated bouncein delay-4" -->
+<!-- 									href="#">FIND</a> -->
+
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+
+				<div class="row">
+					<div class="col s12 center-align">
+						<div class="col s12 center-align p-20">
+							<div class="card-panel animated fadein delay-2"
+								style="border-style: solid; border-width: 1px; border-color: #d90000;">
+								<h4 style="color: black;">
+									<b>POPULAR BRANDS</b>
+								</h4>
+								<hr>
+								<div class="swiper-container slider" ng-init="loadBrands()">
+									<div class="swiper-wrapper" id="featured_cars_content">
+										<div class="swiper-slide"
+											ng-repeat="b in brands | filter:{name:brandName}">
+											<div class="blog-fullwidth animated fadeinup delay-1">
+												<div class="checkout-details drop-shadow">
+													<img class="checkout-image" ng-click="displayModel(b)"
+														style="margin: auto; width: 50%; display: block; box-shadow: 0px 0px 14px 0px #888888;"
+														ng-src="{{b.logo}}" alt="">
+													<div class="checkout-product-title">
+														<h6>
+															<span class="right"></span>
+														</h6>
+														<span></span>
+													</div>
+												</div>
+												<div class="blog-preview p-20">
+													<h4 class="uppercase"></h4>
+													<p></p>
+												</div>
+											</div>
+										</div>
+
+									</div>
+									<div class="input-field" style="margin-bottom: 20px;">
+										<input class="validate" id="brand_name" type="text"
+											ng-model="brandName" value=""> <label
+											style="color: black;" for="brand_name">Type brand
+											name, e.g Audi BMW</label>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="row">
+					<div class="col s12 center-align">
+						<div class="col s12 center-align p-20">
+							<div class="card-panel animated fadein delay-2"
+								style="border-style: solid; border-width: 1px; border-color: #d90000;">
+								<h4 style="color: black;">
+									<b>FEATURED CARS</b>
+								</h4>
+								<hr>
+								<div class="swiper-container slider"
+									ng-init="loadFeaturedCars()">
+									<div class="swiper-wrapper" id="featured_cars_content">
+										<div class="swiper-slide"
+											ng-repeat="f in featuredCars | filter:{title:featuredCarName}">
+											<div class="blog-fullwidth animated fadeinup delay-1">
+												<div class="blog-header">
+
+													<div class="blog-author">
+														<span></span> <span class="small"></span>
+													</div>
+												</div>
+												<a href="{{f.link}}"><div class="blog-image">
+														<img ng-src={{f.thumbnail}} alt="">
+														<div class="opacity-overlay-top"></div>
+													</div> </a>
+												<div class="blog-preview p-20">
+													<h4 class="uppercase">{{f.title}}</h4>
+													<p></p>
+												</div>
+											</div>
+										</div>
+
+									</div>
+									<div class="input-field" style="margin-bottom: 20px;">
+										<input class="validate" id="featured_car_name"
+											ng-model="featuredCarName" type="text"> <label
+											style="color: black;" for="featured_car_name">Type
+											car name, e.g Audi A3</label>
+									</div>
+									<a onclick=""
+										class="waves-effect waves-light btn-large accent-color width-100 m-b-20 animated bouncein delay-4"
+										href="featured_cars_list.html">BROWS ALL</a>
+
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- End of Slider -->
+
+				<div class="row">
+					<div class="col s12 center-align">
+						<div class="col s12 center-align p-20">
+							<div class="card-panel animated fadein delay-2"
+								style="border-style: solid; border-width: 1px; border-color: #d90000;">
+								<h4 style="color: black;">
+									<b>NEWS MAGAZINES</b>
+								</h4>
+								<hr>
+								<div class="swiper-container slider" ng-init="loadMagazine()">
+									<div class="swiper-wrapper" id="">
+										<div class="swiper-slide" ng-repeat="m in magazines.item">
+											<div class="blog-fullwidth animated fadeinup delay-1">
+												<div class="blog-header">
+
+													<div class="blog-author">
+														<span></span> <span class="small"></span>
+													</div>
+												</div>
+												<div class="blog-image">
+													<img ng-src={{m.url}} alt="">
+													<div class="opacity-overlay-top"></div>
+												</div>
+												<div class="blog-preview p-20">
+													<h4 class="uppercase">{{m.title}}</h4>
+													<p></p>
+													<!-- 												<a href="article.html" -->
+													<!-- 													class="waves-effect waves-light btn accent-color">DETAIL</a> -->
+												</div>
+											</div>
+										</div>
+
+									</div>
+									<!-- Add Pagination -->
+									<a onclick=""
+										class="waves-effect waves-light btn-large accent-color width-100 m-b-20 animated bouncein delay-4"
+										href="news_list.html">BROWS ALL</a>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col s12 center-align">
+						<div class="col s12 center-align p-20">
+							<div class="card-panel animated fadein delay-2"
+								style="border-style: solid; border-width: 1px; border-color: #d90000;">
+								<h4 style="color: black;">
+									<b>CONCESSIONNAIRE</b>
+								</h4>
+								<hr>
+								<div class="swiper-container slider"
+									ng-init="loadConcessionnaire()">
+									<div class="swiper-wrapper" id="">
+										<div class="swiper-slide" ng-repeat="c in concessionnaires">
+											<div class="blog-fullwidth animated fadeinup delay-1">
+												<div class="blog-header">
+
+													<div class="blog-author">
+														<span></span> <span class="small"></span>
+													</div>
+												</div>
+												<div class="blog-image">
+													<img ng-src={{c.logo}} alt="">
+													<div class="opacity-overlay-top"></div>
+												</div>
+												<div class="blog-preview p-20">
+													<h4 class="uppercase">{{c.name}}</h4>
+													<p>{{c.address}}</p>
+													<!-- 												<a href="article.html" -->
+													<!-- 													class="waves-effect waves-light btn accent-color">DETAIL</a> -->
+												</div>
+											</div>
+										</div>
+
+									</div>
+									<a onclick=""
+										class="waves-effect waves-light btn-large accent-color width-100 m-b-20 animated bouncein delay-4"
+										href="concessionnaire_list.html">BROWS ALL</a>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+			<footer class="page-footer primary-color">
+				<div class="container">
+					<div class="row">
+						<div class="col s12">
+							<p class="center-align grey-text text-lighten-4"></p>
+							<div class="center-align">
+								<!-- 							<i class="ion-social-facebook m-10 white-text"></i> <i -->
+								<!-- 								class="ion-social-twitter m-10 white-text"></i> <i -->
+								<!-- 								class="ion-social-pinterest m-10 white-text"></i> <i -->
+								<!-- 								class="ion-social-dribbble m-10 white-text"></i> -->
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="footer-copyright blue darken-1">
+					<div class="container" ng-init="loadBrands()">
+						<a class="grey-text text-lighten-4 right" href="#!"></a>
+					</div>
+				</div>
+			</footer>
+
+		</div>
+		<!-- End of Main Contents -->
+
+
+		<!-- End of Page Content -->
+
+
+		<!-- End of Page Container -->
+
+		<!-- Modal  -->
+
+		<div id="modal3" class="modal bottom-sheet">
+			<div class="modal-content">
+				<h4>Sign out</h4>
+				<p>Press YES to Sign out...</p>
+			</div>
+			<div class="modal-footer">
+				<a href="#" onclick="signOut()"
+					class=" modal-action modal-close waves-effect waves-green btn-flat">Yes</a>
+				<a href="#" onclick="hideAlert()"
+					class=" modal-action modal-close waves-effect waves-green btn-flat">NO</a>
+			</div>
+		</div>
+		<div id="modal1" class="modal">
+			<div class="modal-content">
+				<h4>Modal Header</h4>
+				<p>A bunch of text</p>
+			</div>
+			<div class="modal-footer">
+				<a href="#!"
+					class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		var profilePicture = document.getElementById('profile_picture');
+		var username = document.getElementById('user');
+		var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+		profilePicture.src = currentUser.profilePictureUri;
+		username.innerHTML = currentUser.email;
+	</script>
+	<script src="../js/app/angular/angular.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.4.2/angular-ui-router.js"></script>
+	<script type="text/javascript" src="../js/app/utils/URLS.js"></script>
+	<script type="text/javascript" src="../js/app/angular/home_angular.js"></script>
+	<script src="../js/assets/jquery-2.1.0.min.js"></script>
+	<script src="../js/app/home.js"></script>
+	<script src="../js/assets/jquery.swipebox.min.js"></script>
+	<script src="../js/assets/materialize.min.js"></script>
+	<script src="../js/assets/swiper.min.js"></script>
+	<script src="../js/assets/jquery.mixitup.min.js"></script>
+	<script src="../js/assets/masonry.min.js"></script>
+	<script src="../js/assets/chart.min.js"></script>
+	<script src="../js/assets/functions.js"></script>
+</body>
+</html>

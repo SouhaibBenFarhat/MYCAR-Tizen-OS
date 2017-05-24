@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<title>Halo - Mobile Template</title>
+<meta content="IE=edge" http-equiv="x-ua-compatible">
+<meta
+	content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"
+	name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="yes" name="apple-touch-fullscreen">
+<!-- Fonts -->
+<link
+	href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700'
+	rel='stylesheet' type='text/css'>
+<!-- Icons -->
+<link
+	href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
+	media="all" rel="stylesheet" type="text/css">
+<!-- Styles -->
+<link href="../css/keyframes.css" rel="stylesheet" type="text/css">
+<link href="../css/input_file.css" rel="stylesheet" type="text/css">
+<link href="../css/materialize.min.css" rel="stylesheet" type="text/css">
+<link href="../css/swiper.css" rel="stylesheet" type="text/css">
+<link href="../css/swipebox.min.css" rel="stylesheet" type="text/css">
+<link href="../css/style.css" rel="stylesheet" type="text/css">
+<script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
+<script>
+	var config = {
+		apiKey : "AIzaSyCjzC9W7xXa0WemOZ76r155Ua_5j1_ytRE",
+		authDomain : "carsstore-1c8c5.firebaseapp.com",
+		databaseURL : "https://carsstore-1c8c5.firebaseio.com",
+		storageBucket : "carsstore-1c8c5.appspot.com",
+		messagingSenderId : "1044306183712"
+	};
+	firebase.initializeApp(config);
+</script>
+<script type="text/javascript">
+	window.addEventListener('tizenhwkey', function onTizenHwKey(e) {
+		if (e.keyName === 'back') {
+			window.history.back();
+
+		}
+	});
+</script>
+</head>
+
+<body ng-app="user_profile_angular"
+	ng-controller="userProfileController">
+	<div class="m-scene" id="main">
+		<!-- Main Container -->
+
+		<!-- Sidebars -->
+		<!-- Right Sidebar -->
+
+		<!-- Left Sidebar -->
+		<ul id="slide-out-left" class="side-nav collapsible">
+			<li>
+				<div class="sidenav-header primary-color">
+					<div class="nav-social"></div>
+					<div class="nav-avatar">
+						<img class="circle avatar" id="profile_picture"
+							src="../img/user.jpg" alt="">
+						<div class="avatar-body">
+							<h3></h3>
+							<p id="user">Material Mobile</p>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li><a href="index.html" class="no-child"><i class="ion-android-home"></i>
+					HOME</a></li>
+			<li><a href="brand_list.html" class="no-child"><i
+					class="ion-android-playstore"></i> NEW</a></li>
+			<li><a href="user_profile.html" class="no-child"><i
+					class="ion-android-contact"></i> PROFILE</a></li>
+			<li><a href="annonce.html" class="no-child"><i
+					class="ion-model-s"></i> USED </a></li>
+			<li><a href="user_favoris.html" class="no-child"><i
+					class="ion-android-star"></i> FAVORIS</a></li>
+					<li><a href="user_post.html" class="no-child"><i
+					class="ion-clipboard"></i> MY POSTS</a></li>
+					<li><a href="savedAnn.html" class="no-child"><i
+					class="ion-ios-download"></i> SAVED POSTS</a></li>
+
+
+		</ul>
+
+
+		<!-- End of Sidebars -->
+
+		<!-- Page Content -->
+		<div id="content" class="page">
+
+			<!-- Toolbar -->
+			<div id="toolbar" class="primary-color">
+				<div class="open-left" id="open-left"
+					data-activates="slide-out-left">
+					<i class="ion-android-menu"></i>
+				</div>
+				<span class="title"></span>
+
+			</div>
+
+			<!-- Main Content -->
+			<div class="animated fadeinup">
+				<!-- Order Recap -->
+				<ul class="collapsible checkout-header animated fadeindown delay-2"
+					data-collapsible="accordion active">
+					<li class="active">
+						<div class="collapsible-header active">
+							PROFILE DETAIL <i class="ion-android-arrow-dropdown"></i> <span
+								class="checkout-price right"></span>
+						</div>
+						<div class="collapsible-body z-depth-1">
+
+							<!-- Products in cart -->
+							<div class="checkout-details">
+								<img class="checkout-image" id="user_profile_picture"
+									src="../img/2.jpg" alt="">
+								<div class="checkout-product-title">
+									<h6>
+										<span class="right"></span>
+									</h6>
+									<span></span>
+								</div>
+							</div>
+
+							<!-- Discount -->
+
+
+							<!-- Subtotal -->
+							<div class="subtotal">
+								<h6>
+									Email <span class="right" id="email"></span>
+								</h6>
+								<span>Display name <span class="right" id="main_username">--</span></span>
+							</div>
+
+							<!-- Total -->
+
+
+						</div>
+					</li>
+				</ul>
+				<div id="profile_information_panel">
+					<div class="card m-t-40 animated fadeinup">
+						<div class="c-widget">
+							<div class="c-widget-figure primary-color">
+								<i class="ion-android-mail"></i>
+							</div>
+							<div class="c-widget-body">
+								<p class="m-0">EMAIL</p>
+								<p id="display_user_email" class="small m-0"></p>
+							</div>
+						</div>
+					</div>
+					<div class="card m-t-40 animated fadeinup delay-2">
+						<div class="c-widget">
+							<div class="c-widget-figure primary-color">
+								<i class="ion-android-contact"></i>
+							</div>
+							<div class="c-widget-body">
+								<p class="m-0">Fullname</p>
+								<p id="display_user_name" class="small m-0"></p>
+							</div>
+						</div>
+					</div>
+					<div class="card animated fadeinup delay-3">
+						<div class="c-widget">
+							<div class="c-widget-figure accent-color">
+								<i class="ion-location"></i>
+							</div>
+							<div class="c-widget-body">
+								<p class="m-0">Address</p>
+								<p class="small m-0" id="display_user_address"></p>
+							</div>
+						</div>
+					</div>
+					<div class="card animated fadeinup delay-3">
+						<div class="c-widget">
+							<div class="c-widget-figure accent-color">
+								<i class="ion-map"></i>
+							</div>
+							<div class="c-widget-body">
+								<p class="m-0">City</p>
+								<p class="small m-0" id="display_user_city"></p>
+							</div>
+						</div>
+					</div>
+					<div class="card m-t-40 animated fadeinup delay-2">
+						<div class="c-widget">
+							<div class="c-widget-figure primary-color">
+								<i class="ion-ios-telephone"></i>
+							</div>
+							<div class="c-widget-body">
+								<p class="m-0">Phone</p>
+								<p id="display_user_phone" class="small m-0"></p>
+							</div>
+						</div>
+					</div>
+					<div class="card m-t-40 animated fadeinup delay-2">
+						<div class="c-widget">
+							<div class="c-widget-figure primary-color">
+								<i class="ion-calendar"></i>
+							</div>
+							<div class="c-widget-body">
+								<p class="m-0">Age</p>
+								<p id="display_user_age" class="small m-0"></p>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-inputs">
+						<a onclick="showUpdatePanel()" href="#"
+							class="waves-effect waves-light btn-large accent-color width-100">UPDATE
+							PROFILE</a>
+					</div>
+
+
+
+				</div>
+				<!-- Form Inputs -->
+				<div class="form-inputs" id="other_information">
+					<form>
+						<h4>OTHER INFORMATION</h4>
+						<div class="contact">
+							<img alt="" id="choosen_picture" src="../img/user.jpg">
+							<p>
+								<label for="file-input" class="input-label"> Choose New
+									Profile Picture <input type="file" id="file-input"
+									accept="image/*">
+								</label>
+							</p>
+							<span></span>
+						</div>
+						<div class="input-field">
+							<label for="email" data-error="wrong" id="age-label">AGE</label>
+							<input required="required" id="user_age" type="number"
+								class="validate">
+						</div>
+						<div>
+							<div class="input-field">
+								<input id="user_first_name" type="text" class="validate">
+								<label for="first_name" id="first-name-label">First Name</label>
+							</div>
+							<div class="input-field">
+								<input id="user_last_name" type="text" class="validate">
+								<label for="last_name" id="last-name-label">Last Name</label>
+							</div>
+						</div>
+						<div class="input-field">
+							<input id="user_address" type="text" class="validate"> <label
+								for="address" id="address-label">Address</label>
+						</div>
+						<div class="input-field">
+							<input id="user_city" type="text" class="validate"> <label
+								for="city" id="city-label">City</label>
+						</div>
+						<div class="input-field">
+							<input id="user_phone" type="number" class="validate"> <label
+								for="phone" id="phone-label">Phone</label>
+						</div>
+
+						<a onclick="writeUserData()" href="#"
+							class="waves-effect waves-light btn-large accent-color width-100">SAVE</a>
+						<span>Profile Already updated? <a
+							onclick="hideUpdatePanel()" class="primary-text">Back</a></span>
+					</form>
+				</div>
+
+				<!-- Footer -->
+				<footer class="page-footer primary-color">
+					<div class="container">
+						<div class="row">
+							<div class="col s12">
+								<p class="center-align grey-text text-lighten-4"></p>
+							</div>
+						</div>
+					</div>
+					<div class="footer-copyright blue darken-1">
+						<div class="container"><a class="grey-text text-lighten-4 right" href="#!"></a>
+						</div>
+					</div>
+				</footer>
+			</div>
+			<!-- End of Main Contents -->
+
+
+		</div>
+		<!-- End of Page Content -->
+
+	</div>
+	<!-- End of Page Container -->
+	<script type="text/javascript">
+		var profilePicture = document.getElementById('profile_picture');
+		var username = document.getElementById('user');
+		var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+		profilePicture.src = currentUser.profilePictureUri;
+		username.innerHTML = currentUser.email;
+	</script>
+
+	<script src="../js/app/angular/angular.min.js"></script>
+	<script type="text/javascript"
+		src="../js/app/angular/user_profile_angular.js"></script>
+	<script type="text/javascript" src="../js/app/main.js"></script>
+	<script src="../js/app/user_profile.js"></script>
+	<script src="../js/assets/jquery-2.1.0.min.js"></script>
+	<script>
+		function readURL(input) {
+
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+
+				reader.onload = function(e) {
+					$('#choosen_picture').attr('src', e.target.result);
+				}
+
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
+
+		$("#file-input").change(function() {
+			readURL(this);
+		});
+	</script>
+	<script src="../js/assets/jquery.swipebox.min.js"></script>
+	<script src="../js/assets/materialize.min.js"></script>
+	<script src="../js/assets/swiper.min.js"></script>
+	<script src="../js/assets/jquery.mixitup.min.js"></script>
+	<script src="../js/assets/masonry.min.js"></script>
+	<script src="../js/assets/chart.min.js"></script>
+	<script src="../js/assets/functions.js"></script>
+</body>
+</html>

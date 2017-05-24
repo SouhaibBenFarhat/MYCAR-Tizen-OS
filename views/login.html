@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<title></title>
+<meta content="IE=edge" http-equiv="x-ua-compatible">
+<meta charset="UTF-8">
+
+<meta
+	content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"
+	name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="yes" name="apple-touch-fullscreen">
+
+<!-- firebase -->
+<script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
+<script>
+	var config = {
+		apiKey : "AIzaSyCjzC9W7xXa0WemOZ76r155Ua_5j1_ytRE",
+		authDomain : "carsstore-1c8c5.firebaseapp.com",
+		databaseURL : "https://carsstore-1c8c5.firebaseio.com",
+		storageBucket : "carsstore-1c8c5.appspot.com",
+		messagingSenderId : "1044306183712"
+	};
+	firebase.initializeApp(config);
+	firebase.auth().signOut().then(function() {
+		console.log('Signed Out');
+	}, function(error) {
+		console.error('Sign Out Error', error);
+	});
+</script>
+<script type="text/javascript" src="../js/app/facebook_manager.js"></script>
+<script src="../js/app/login_register.js"></script>
+<script src="../js/app/main.js"></script>
+<!-- Fonts -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link
+	href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700'
+	rel='stylesheet' type='text/css'>
+<!-- Icons -->
+<link
+	href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
+	media="all" rel="stylesheet" type="text/css">
+<!-- Styles -->
+<link href="../css/keyframes.css" rel="stylesheet" type="text/css">
+<link href="../css/materialize.min.css" rel="stylesheet" type="text/css">
+<link href="../css/swiper.css" rel="stylesheet" type="text/css">
+<link href="../css/swipebox.min.css" rel="stylesheet" type="text/css">
+<link href="../css/style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body onload="">
+	<!-- Page Content -->
+	<div id="content" class="grey-blue login">
+
+		<!-- Toolbar -->
+		<div id="toolbar" class="tool-login primary-color animated fadeindown">
+			<a href="#" onclick="onBackPressed()" class="open-left"> <i
+				class="ion-android-arrow-back"></i>
+			</a>
+		</div>
+
+		<!-- Main Content -->
+		<div class="login-form animated fadeinup delay-2 z-depth-1">
+
+
+			<h1>Login</h1>
+			<div class="col s12 center-align" id="loadingIndicator">
+				<div class="col s12 center-align p-20">
+					<i id="loadingIndicator" class="fa fa-circle-o-notch fa-spin"
+						style="font-size: 24px"></i>
+				</div>
+			</div>
+			<div id="error" hidden="true">
+				<div class="card-panel animated fadein delay-2">
+					<i class="ion-android-close pull-right" onclick="closeAlert()"></i>
+					<h2>Oops!</h2>
+
+					<a class="accent-text" href="#"></a> <span id="error_content"><br></span>
+				</div>
+			</div>
+			<div class="input-field">
+				<i class="ion-android-contact prefix icon-red"></i> <input value=""
+					class="validate" id="login" type="text"> <label for="login">Email</label>
+			</div>
+
+			<div class="input-field" style="margin-bottom: 20px;">
+				<i class="ion-android-lock prefix icon-red"></i> <input value=""
+					class="validate" id="login-psw" type="password"> <label
+					for="login-psw">Password</label>
+			</div>
+
+			<a onclick="signin()"
+				class="waves-effect waves-light btn-large accent-color width-100 m-b-20 animated bouncein delay-4"
+				href="#">Login</a> 
+<!-- 				<a hidden="true" onclick="FBLogin()" -->
+<!-- 				class="waves-effect  waves-light btn-large  width-100 m-b-20 animated bouncein delay-4 facebook_btn" -->
+<!-- 				href="#">Facebook</a>  -->
+				<span>Don't have an account? <a
+				class="primary-text" href="signup.html">Sign Up</a></span>
+		</div>
+		<!-- End of Main Contents -->
+
+
+	</div>
+	<!-- End of Page Content -->
+
+
+
+	<script type="text/javascript">
+		var loadingIndicator = document.getElementById('loadingIndicator');
+		loadingIndicator.hidden = true;
+	</script>
+	<script src="../js/assets/jquery-2.1.0.min.js"></script>
+	<script src="../js/assets/jquery.swipebox.min.js"></script>
+	<script src="../js/assets/materialize.min.js"></script>
+	<script src="../js/assets/swiper.min.js"></script>
+	<script src="../js/assets/jquery.mixitup.min.js"></script>
+	<script src="../js/assets/masonry.min.js"></script>
+	<script src="../js/assets/chart.min.js"></script>
+	<script src="../js/assets/functions.js"></script>
+</body>
+</html>

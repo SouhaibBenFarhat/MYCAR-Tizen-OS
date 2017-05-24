@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<title>Halo - Mobile Template</title>
+<meta content="IE=edge" http-equiv="x-ua-compatible">
+<meta
+	content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"
+	name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="yes" name="apple-touch-fullscreen">
+
+<script type="text/javascript">
+	window.addEventListener('tizenhwkey', function onTizenHwKey(e) {
+		if (e.keyName === 'back') {
+			document.getElementById('modal3').setAttribute("style",
+					"z-index: 1003; display: block; opacity: 1; bottom: 0px;");
+
+		}
+	});
+</script>
+
+
+<!-- firebase -->
+<script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
+<script>
+	var config = {
+		apiKey : "AIzaSyCjzC9W7xXa0WemOZ76r155Ua_5j1_ytRE",
+		authDomain : "carsstore-1c8c5.firebaseapp.com",
+		databaseURL : "https://carsstore-1c8c5.firebaseio.com",
+		storageBucket : "carsstore-1c8c5.appspot.com",
+		messagingSenderId : "1044306183712"
+	};
+	firebase.initializeApp(config);
+</script>
+<script type="text/javascript">
+	window.addEventListener('tizenhwkey', function onTizenHwKey(e) {
+		if (e.keyName === 'back') {
+			window.history.back();
+
+		}
+	});
+</script>
+
+
+
+<!-- Fonts -->
+<link
+	href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700'
+	rel='stylesheet' type='text/css'>
+<!-- Icons -->
+<link
+	href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
+	media="all" rel="stylesheet" type="text/css">
+<!-- Styles -->
+<link href="../css/input_file.css" rel="stylesheet" type="text/css">
+<link href="../css/keyframes.css" rel="stylesheet" type="text/css">
+<link href="../css/materialize.min.css" rel="stylesheet" type="text/css">
+<link href="../css/swiper.css" rel="stylesheet" type="text/css">
+<link href="../css/swipebox.min.css" rel="stylesheet" type="text/css">
+<link href="../css/style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body ng-app="add_annonce_angular" ng-controller="addAnnonceController"
+	ng-init="loadYears()">
+	<div class="m-scene" id="main">
+		<!-- Main Container -->
+
+		<!-- Sidebars -->
+		<!-- Right Sidebar -->
+		
+		<!-- Left Sidebar -->
+
+
+
+		<ul id="slide-out-left" class="side-nav collapsible">
+			<li>
+				<div class="sidenav-header primary-color">
+					<div class="nav-social"></div>
+					<div class="nav-avatar">
+						<img class="circle avatar" id="profile_picture"
+							src="../img/user.jpg" alt="">
+						<div class="avatar-body">
+							<h3></h3>
+							<p id="user">Material Mobile</p>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li><a href="index.html" class="no-child"><i
+					class="ion-android-home"></i> HOME</a></li>
+			<li><a href="brand_list.html" class="no-child"><i
+					class="ion-android-playstore"></i> NEW</a></li>
+			<li><a href="user_profile.html" class="no-child"><i
+					class="ion-android-contact"></i> PROFILE</a></li>
+			<li><a href="annonce.html" class="no-child"><i
+					class="ion-model-s"></i> USED </a></li>
+			<li><a href="user_favoris.html" class="no-child"><i
+					class="ion-android-star"></i> FAVORIS</a></li>
+					<li><a href="user_post.html" class="no-child"><i
+					class="ion-clipboard"></i> MY POSTS</a></li>
+					<li><a href="savedAnn.html" class="no-child"><i
+					class="ion-ios-download"></i> SAVED POSTS</a></li>
+
+
+		</ul>
+
+		<!-- End of Sidebars -->
+
+		<!-- Page Content -->
+		<div id="content" class="page">
+
+			<!-- Toolbar -->
+			<div id="toolbar" class="primary-color">
+				<div class="open-left" id="open-left"
+					data-activates="slide-out-left">
+					<i class="ion-android-menu"></i>
+				</div>
+				<span class="title">Add a post</span>
+				
+			</div>
+
+			<!-- Main Content -->
+			<div class="animated fadeinup">
+
+
+				<!-- Form Inputs -->
+				<div class="form-inputs">
+
+
+					<h5>Choose a type for your vehicule:</h5>
+					<select class="browser-default m-b-30" ng-model="selectedType">
+						<option value="" disabled selected>Choose your type</option>
+						<option value="HatchBack">HatchBack</option>
+						<option value="Coupe">Coupe</option>
+						<option value="SUV">SUV</option>
+						<option value="MiniVan">MiniVan</option>
+						<option value="Convertible">Convertible</option>
+						<option value="Sedan">Sedan</option>
+						<option value="Truck">Truck</option>
+						<option value="Vagan">Vagan</option>
+					</select>
+
+					<h5>Vehicule's year of construction:</h5>
+
+					<select ng-options="y.year for y in years" ng-model="selectedYear"
+						class="browser-default m-b-30" ng-change="loadBrandsByYear()"
+						id="slt_year">
+						<option value="" disabled selected>Choose year</option>
+
+					</select>
+
+
+
+					<h5>Choose your vehicule's Brand:</h5>
+					<!-- Order Recap -->
+					<ul class="collapsible checkout-header animated fadeindown delay-2"
+						data-collapsible="accordion">
+						<li>
+							<div class="collapsible-header">
+								Show Brands <i class="ion-android-arrow-dropdown"></i>
+							</div>
+							<div class="collapsible-body z-depth-1" style="box-shadow: none;">
+
+
+
+								<div class="row" ng-show="brandByYear"
+									style="width: 100%; height: 100%;">
+									<div>
+										<div class="col s12 center-align p-20">
+											<div class="card-panel animated fadein delay-2"
+												style="border-style: solid; border-width: 1px; border-color: #d90000;">
+												<h4 style="color: black;">
+													<b>BRANDS</b>
+												</h4>
+												<hr>
+												<div class="swiper-container slider">
+													<div class="swiper-wrapper" id="featured_cars_content">
+														<div class="swiper-slide"
+															ng-repeat="b in brandByYear | filter:{name:brandName}">
+															<div class="blog-fullwidth" id="b.id"
+																ng-click="selectedBrand(b)">
+																<div class="checkout-details drop-shadow">
+																	<img class="checkout-image"
+																		style="margin: auto; width: 75%; display: block; box-shadow: 0px 0px 14px 0px #888888;"
+																		ng-src="{{b.logo}}" alt="">
+																	<div class="checkout-product-title">
+																		<h6>
+																			<span class="right"></span>
+																		</h6>
+																		<span></span>
+																	</div>
+																</div>
+
+															</div>
+														</div>
+
+													</div>
+
+													<div class="swiper-button-next"></div>
+													<div class="swiper-button-prev"></div>
+													<div class="input-field" style="margin-bottom: 20px;">
+														<input class="validate" id="brand_name" type="text"
+															ng-model="brandName" value=""> <label
+															style="color: black;" for="brand_name">Type brand
+															name</label>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+
+
+
+
+
+							</div>
+						</li>
+					</ul>
+
+					<h5>Choose the vehicule's model:</h5>
+
+					<select ng-options="m.name for m in models"
+						ng-model="selectedModel" class="browser-default m-b-30">
+						<option value="" disabled selected>Choose model</option>
+
+					</select>
+
+
+
+
+
+					<h5>Choose type of transmission:</h5>
+
+					<select class="browser-default m-b-30"
+						ng-model="selectedTransmission">
+						<option value="" disabled selected>--</option>
+						<option value="Automatic">Automatic</option>
+						<option value="Semi-Automatic">Semi-Automatic</option>
+						<option value="Manual">Manual</option>
+					</select>
+
+					<h5>Choose the vehicule state:</h5>
+					<select class="browser-default m-b-30" ng-model="selectedState">
+						<option value="" disabled selected>--</option>
+						<option value="New">New</option>
+						<option value="Used">Used</option>
+					</select>
+
+
+
+					<h5>Choose type of fuel:</h5>
+					<select class="browser-default m-b-30" ng-model="selectedFuel">
+						<option value="" disabled selected>--</option>
+						<option value="diesel">Diesel</option>
+						<option value="petrol">Petrol</option>
+						<option value="gas">Gas</option>
+						<option value="hybrid">Hybrid</option>
+					</select>
+
+					<h5>Pick date of circulation:</h5>
+					<div class="input-field">
+						<input id="date" type="date" ng-model="selectedDate">
+					</div>
+
+
+
+
+
+
+					<h5>Choose Vehicule door's number:</h5>
+					<div class="m-b-30">
+						<p>
+							<input name="group1" type="radio" id="test1" value="2 Doors"
+								ng-model="selectedDoors" /> <label for="test1">2 Doors</label>
+						</p>
+						<p>
+							<input name="group1" type="radio" id="test2" value="3 Doors"
+								ng-model="selectedDoors" /> <label for="test2">3 Doors</label>
+						</p>
+						<p>
+							<input name="group1" type="radio" id="test3" value="4 Doors"
+								ng-model="selectedDoors" /> <label for="test3">4 Doors</label>
+						</p>
+						<p>
+							<input name="group1" type="radio" id="test4" value="5 Doors"
+								ng-model="selectedDoors" /> <label for="test4">5 Doors</label>
+						</p>
+						<p>
+							<input name="group1" type="radio" id="test3" ng-value="Other..."
+								ng-model="selectedDoors" /> <label for="test3">Other...</label>
+						</p>
+					</div>
+
+					<div>
+						<div class="input-field">
+							<input id="horse_power" type="number" class="validate"
+								ng-model="horse"> <label for="horse_power">Horse
+								Power</label>
+						</div>
+						<div class="input-field">
+							<input id="kilometers" type="number" class="validate"
+								ng-model="km"> <label for="kilometers">Kilometers-Mileage</label>
+						</div>
+					</div>
+					<div class="input-field">
+						<input id="color" type="text" ng-model="color"> <label
+							for="color">Color</label>
+					</div>
+					<div class="input-field">
+						<input id="price" type="number" ng-model="price"> <label
+							for="price">Price (TD)</label>
+					</div>
+					<div class="input-field"">
+						<input id="phone_number" type="number" ng-model="phone"> <label
+							for="phone_number">Phone number</label>
+					</div>
+
+
+					<textarea ng-model="description" id="textarea1"
+						class="materialize-textarea" placeholder="Other description..."></textarea>
+
+					<hr>
+
+
+					<!-- User Annonce photo -->
+
+					<h5>Add photos of your vehicule:</h5>
+
+
+					<div class="animated fadeinup page">
+
+						<div class="shop-category center-align animated fadeinup delay-1">
+							<div class="category-image">
+								<div class="category-header"></div>
+								<img id="choosen_picture_front" src="../img/product.jpg" alt="">
+								<a href=""><div class="opacity-overlay"></div></a>
+							</div>
+							<div class="category-preview p-20">
+
+								<h3 class="price">Front</h3>
+								<div class="rating"></div>
+								<div class="waves-effect waves-light btn accent-color">
+									<label for="file-input_front" class="input-label"
+										style="color: white;"> Pick image <input type="file"
+										id="file-input_front" accept="image/*">
+									</label>
+								</div>
+							</div>
+						</div>
+
+						<div class="shop-category center-align animated fadeinup delay-1">
+							<div class="category-image">
+								<div class="category-header"></div>
+								<img id="choosen_picture_back" src="../img/product.jpg" alt="">
+								<a href=""><div class="opacity-overlay"></div></a>
+							</div>
+							<div class="category-preview p-20">
+
+								<h3 class="price">Back</h3>
+								<div class="rating"></div>
+								<div class="waves-effect waves-light btn accent-color">
+									<label for="file-input_back" class="input-label"
+										style="color: white;"> Pick image <input type="file"
+										id="file-input_back" accept="image/*">
+									</label>
+								</div>
+							</div>
+						</div>
+
+						<div class="shop-category center-align animated fadeinup delay-1">
+							<div class="category-image">
+								<div class="category-header"></div>
+								<img id="choosen_picture_left" src="../img/product.jpg" alt="">
+								<a href=""><div class="opacity-overlay"></div></a>
+							</div>
+							<div class="category-preview p-20">
+
+								<h3 class="price">Left</h3>
+								<div class="rating"></div>
+
+								<div class="waves-effect waves-light btn accent-color">
+									<label for="file-input_left" class="input-label"
+										style="color: white;"> Pick image <input type="file"
+										id="file-input_left" accept="image/*">
+									</label>
+								</div>
+							</div>
+						</div>
+
+						<div class="shop-category center-align animated fadeinup delay-1">
+							<div class="category-image">
+								<div class="category-header"></div>
+								<img id="choosen_picture_right" src="../img/product.jpg" alt="">
+								<a href=""><div class="opacity-overlay"></div></a>
+							</div>
+							<div class="category-preview p-20">
+
+								<h3 class="price">Right</h3>
+								<div class="rating"></div>
+								<div class="waves-effect waves-light btn accent-color">
+									<label for="file-input_right" class="input-label"
+										style="color: white;"> Pick image <input type="file"
+										id="file-input_right" accept="image/*">
+									</label>
+								</div>
+							</div>
+						</div>
+
+						<hr>
+
+
+						<a
+							class="waves-effect waves-light btn-large accent-color width-100"
+							href="#" ng-click="addAnnonce()">ADD</a>
+					</div>
+
+					<!-- Footer -->
+	
+				</div>
+				<!-- End of Main Contents -->
+
+
+			</div>
+							<footer class="page-footer primary-color">
+						<div class="container">
+							<div class="row">
+								<div class="col s12">
+									<p class="center-align grey-text text-lighten-4"></p>
+									<div class="center-align">
+										<!-- <i class="ion-social-facebook m-10 white-text"></i>
+                  <i class="ion-social-twitter m-10 white-text"></i>
+                  <i class="ion-social-pinterest m-10 white-text"></i>
+                  <i class="ion-social-dribbble m-10 white-text"></i> -->
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="footer-copyright blue darken-1">
+							<div class="container">
+								 <a class="grey-text text-lighten-4 right"
+									href="#!"></a>
+							</div>
+						</div>
+					</footer>
+			<!-- End of Page Content -->
+
+		</div>
+		<!-- End of Page Container -->
+
+
+		<script src="../js/assets/jquery-2.1.0.min.js"></script>
+		<script src="../js/assets/jquery.swipebox.min.js"></script>
+		<script src="../js/assets/materialize.min.js"></script>
+		<script src="../js/assets/swiper.min.js"></script>
+		<script src="../js/assets/jquery.mixitup.min.js"></script>
+		<script src="../js/assets/masonry.min.js"></script>
+		<script src="../js/assets/chart.min.js"></script>
+		<script src="../js/assets/functions.js"></script>
+		<script src="../js/assets/ImageTools.js"></script>
+		<script src="../js/app/angular/angular.min.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.4.2/angular-ui-router.js"></script>
+		<script type="text/javascript" src="../js/app/utils/URLS.js"></script>
+		<script type="text/javascript"
+			src="../js/app/angular/add_annonce_angular.js"></script>
+		<script>
+			function readURLFront(input) {
+
+				if (input.files && input.files[0]) {
+					var reader = new FileReader();
+
+					reader.onload = function(e) {
+						$('#choosen_picture_front')
+								.attr('src', e.target.result);
+					}
+
+					reader.readAsDataURL(input.files[0]);
+				}
+			}
+
+			function readURLBack(input) {
+
+				if (input.files && input.files[0]) {
+					var reader = new FileReader();
+
+					reader.onload = function(e) {
+						$('#choosen_picture_back').attr('src', e.target.result);
+					}
+
+					reader.readAsDataURL(input.files[0]);
+				}
+			}
+
+			function readURLLeft(input) {
+
+				if (input.files && input.files[0]) {
+					var reader = new FileReader();
+
+					reader.onload = function(e) {
+						$('#choosen_picture_left').attr('src', e.target.result);
+					}
+
+					reader.readAsDataURL(input.files[0]);
+				}
+			}
+
+			function readURLRight(input) {
+
+				if (input.files && input.files[0]) {
+					var reader = new FileReader();
+
+					reader.onload = function(e) {
+						$('#choosen_picture_right')
+								.attr('src', e.target.result);
+					}
+
+					reader.readAsDataURL(input.files[0]);
+				}
+			}
+
+			$("#file-input_front").change(function() {
+				readURLFront(this);
+
+			});
+			$("#file-input_back").change(function() {
+				readURLBack(this);
+			});
+			$("#file-input_left").change(function() {
+				readURLLeft(this);
+			});
+			$("#file-input_right").change(function() {
+				readURLRight(this);
+			});
+		</script>
+		<script type="text/javascript">
+		var profilePicture = document.getElementById('profile_picture');
+		var username = document.getElementById('user');
+		var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+		profilePicture.src = currentUser.profilePictureUri;
+		username.innerHTML = currentUser.email;
+	</script>
+</body>
+</html>

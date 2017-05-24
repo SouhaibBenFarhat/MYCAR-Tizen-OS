@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<title>Halo - Mobile Template</title>
+<meta content="IE=edge" http-equiv="x-ua-compatible">
+<meta
+	content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"
+	name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="yes" name="apple-touch-fullscreen">
+<script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
+<script>
+	var config = {
+		apiKey : "AIzaSyCjzC9W7xXa0WemOZ76r155Ua_5j1_ytRE",
+		authDomain : "carsstore-1c8c5.firebaseapp.com",
+		databaseURL : "https://carsstore-1c8c5.firebaseio.com",
+		storageBucket : "carsstore-1c8c5.appspot.com",
+		messagingSenderId : "1044306183712"
+	};
+	firebase.initializeApp(config);
+</script>
+<script type="text/javascript">
+	window.addEventListener('tizenhwkey', function onTizenHwKey(e) {
+		if (e.keyName === 'back') {
+			window.history.back();
+
+		}
+	});
+</script>
+<!-- Fonts -->
+<link
+	href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700'
+	rel='stylesheet' type='text/css'>
+<!-- Icons -->
+<link
+	href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
+	media="all" rel="stylesheet" type="text/css">
+<!-- Styles -->
+<link href="../css/keyframes.css" rel="stylesheet" type="text/css">
+<link href="../css/materialize.min.css" rel="stylesheet" type="text/css">
+<link href="../css/swiper.css" rel="stylesheet" type="text/css">
+<link href="../css/swipebox.min.css" rel="stylesheet" type="text/css">
+<link href="../css/style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body ng-app="gamme_detail_angular"
+	ng-controller="gammeDetailController" ng-init="displayGammeDetail()">
+	<div class="m-scene" id="main">
+		<!-- Main Container -->
+
+		<!-- Sidebars -->
+		<!-- Right Sidebar -->
+	
+		<!-- Left Sidebar -->
+			<ul id="slide-out-left" class="side-nav collapsible">
+			<li>
+				<div class="sidenav-header primary-color">
+					<div class="nav-social"></div>
+					<div class="nav-avatar">
+						<img class="circle avatar" id="profile_picture"
+							src="../img/user.jpg" alt="">
+						<div class="avatar-body">
+							<h3></h3>
+							<p id="user">Material Mobile</p>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li><a href="index.html" class="no-child"><i class="ion-android-home"></i>
+					HOME</a></li>
+			<li><a href="brand_list.html" class="no-child"><i
+					class="ion-android-playstore"></i> NEW</a></li>
+			<li><a href="user_profile.html" class="no-child"><i
+					class="ion-android-contact"></i> PROFILE</a></li>
+			<li><a href="annonce.html" class="no-child"><i
+					class="ion-model-s"></i> USED </a></li>
+			<li><a href="user_favoris.html" class="no-child"><i
+					class="ion-android-star"></i> FAVORIS</a></li>
+					<li><a href="user_post.html" class="no-child"><i
+					class="ion-clipboard"></i> MY POSTS</a></li>
+					<li><a href="savedAnn.html" class="no-child"><i
+					class="ion-ios-download"></i> SAVED POSTS</a></li>
+
+
+		</ul>
+
+		<!-- End of Sidebars -->
+
+		<!-- Page Content -->
+		<div id="content" class="page">
+
+			<!-- Toolbar -->
+			<div id="toolbar" class="primary-color">
+				<div class="open-left" id="open-left"
+					data-activates="slide-out-left">
+					<i class="ion-android-menu"></i>
+				</div>
+				<span class="title">{{gamme.name}}</span>
+			</div>
+
+			<!-- Hero Header -->
+			<div class="hero-header animated fadein">
+				<!-- Slider -->
+				<div class="swiper-container slider m-b-20">
+					<div class="swiper-wrapper">
+
+						<div class="swiper-slide" ng-repeat=" gp in gammePhotos">
+							<img src="{{gp.url}}" alt="">
+						</div>
+					</div>
+					<!-- Add Pagination -->
+
+				</div>
+				<div class="blog-image" ng-if="gammePhotos.length ==0">
+					<img src="{{gamme.picture_url}}" alt=""
+						style="box-shadow: 1px 1px 8px #e1e0e0;">
+				</div>
+				<!-- End of Slider -->
+
+				<!-- Floating Action Button -->
+
+			</div>
+
+
+			<!-- Article Content -->
+			<div class="animated fadeinup delay-1">
+				<div class="page-content">
+					<div class="post-author">
+						<img src="{{brand.logo}}" alt="" class="avatar circle"> <span></span>
+					</div>
+					<h2 class="uppercase">{{gamme.gamme}}</h2>
+
+					<h5>{{gamme.prix}} DT</h5>
+
+					<div class="rating m-b-30">
+						<i class="ion-star active"></i> <i class="ion-star active"></i> <i
+							class="ion-star active"></i> <i class="ion-star active"></i> <i
+							class="ion-star"></i>
+					</div>
+
+
+					<div class="activities">
+						<div class="activity animated fadeinright delay-1">
+							<p>
+								<a href="#" ng-click="addGammeToFavoris()"
+									class="waves-effect waves-light btn  accent-color"
+									style="margin-bottom: 30px;">FAVORIS</a>
+							</p>
+							<span class="activity-time text-small text-light"> </span> <a
+								href="#" ng-click="addToComparator(gamme)"><span
+								class="activity-type primary-color"><i
+									class="ion-android-options"></i></span></a>
+						</div>
+
+
+
+					</div>
+
+
+
+
+
+					<h5>Description</h5>
+					<p class="text-flow">{{gamme.description}}</p>
+					<a onclick=""
+						class="waves-effect waves-light btn-large accent-color width-100 m-b-20 animated bouncein delay-4"
+						href="gallery_model.html" ng-if="modelPhotos.length >0">PHOTO
+						GALLERY</a>
+				</div>
+				<div class="comments" ng-init="getGammeCaracteristique()">
+					<h3 class="uppercase"></h3>
+					<ul class="comments-list">
+						<li ng-repeat="c in caracteristique">
+							<div class="subtotal">
+								<h6>
+									<b>FEATURES</b> <span class="right"></span>
+								</h6>
+								<span>BODY TYPE <span class="right"><b>{{c.carrosserie}}</b></span></span>
+								<span>PLACE NUMBER <span class="right">{{c.nombre_place}}</span></span>
+								<span>DOORS <span class="right">{{c.nombre_porte}}</span></span>
+								<span>LENGTH <span class="right">{{c.longueur}}</span></span> <span>WIDTH
+									<span class="right">{{c.largeur}}</span>
+								</span> <span>HEIGHT <span class="right">{{c.hauteur}}</span></span> <span>TRUNK
+									SIZE <span class="right">{{c.volume_coffre}}</span>
+								</span>
+							</div>
+						</li>
+						<li ng-init="getGammeMotorisation()">
+							<div class="subtotal" ng-repeat="m in motorisation">
+								<h6>
+									<b>ENGINE</b> <span class="right"></span>
+								</h6>
+								<span>CYLINDER <span class="right">{{m.nombre_cylindre}}</span></span>
+								<span>FUEL<span class="right">{{m.energie}}</span></span> <span>TAX
+									POWER <span class="right">{{m.puissance_fiscal}}</span>
+								</span> <span>HORSE POWER <span class="right">{{m.puissance_chdin}}</span></span>
+								<span>TORQUE <span class="right">{{m.couple}}</span></span> <span>ENGINE
+									SIZE <span class="right">{{m.cylindree}}</span>
+								</span> <span>URBAN CONSUMPTION <span class="right">{{m.consommation_urbaine}}</span></span>
+								<span>MIXED CONSUMPTION <span class="right">{{m.consommation_mixte}}</span></span>
+								<span>0 - 100 <span class="right">{{m.consommation_mixte}}</span></span>
+								<span>TOP SPEED <span class="right">{{m.vitesse_max}}</span></span>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<!-- Footer -->
+				<footer class="page-footer primary-color">
+					<div class="container">
+						<div class="row">
+							<div class="col s12">
+								<p class="center-align grey-text text-lighten-4"></p>
+								<div class="center-align"></div>
+							</div>
+						</div>
+					</div>
+					<div class="footer-copyright blue darken-1">
+						<div class="container"> <a class="grey-text text-lighten-4 right" href="#!"></a>
+						</div>
+					</div>
+				</footer>
+			</div>
+
+
+		</div>
+		<!-- End of Page Content -->
+
+	</div>
+	<!-- End of Page Container -->
+	<script type="text/javascript">
+		var profilePicture = document.getElementById('profile_picture');
+		var username = document.getElementById('user');
+		var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+		profilePicture.src = currentUser.profilePictureUri;
+		username.innerHTML = currentUser.email;
+	</script>
+	<script src="../js/assets/jquery-2.1.0.min.js"></script>
+	<script src="../js/app/angular/angular.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.4.2/angular-ui-router.js"></script>
+	<script type="text/javascript" src="../js/app/utils/URLS.js"></script>
+	<script type="text/javascript" src="../js/app/Entities/Model.js"></script>
+	<script type="text/javascript"
+		src="../js/app/angular/gamme_detail_angular.js"></script>
+	<script src="../js/assets/jquery.swipebox.min.js"></script>
+	<script src="../js/assets/materialize.min.js"></script>
+	<script src="../js/assets/swiper.min.js"></script>
+	<script src="../js/assets/jquery.mixitup.min.js"></script>
+	<script src="../js/assets/masonry.min.js"></script>
+	<script src="../js/assets/chart.min.js"></script>
+	<script src="../js/assets/functions.js"></script>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<title>Halo - Mobile Template</title>
+<meta content="IE=edge" http-equiv="x-ua-compatible">
+<meta
+	content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"
+	name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="yes" name="apple-touch-fullscreen">
+<script type="text/javascript">
+	window.addEventListener('tizenhwkey', function onTizenHwKey(e) {
+		if (e.keyName === 'back') {
+			window.history.back();
+
+		}
+	});
+</script>
+<!-- Fonts -->
+<link
+	href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700'
+	rel='stylesheet' type='text/css'>
+<!-- Icons -->
+<link
+	href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
+	media="all" rel="stylesheet" type="text/css">
+<!-- Styles -->
+<link href="../css/keyframes.css" rel="stylesheet" type="text/css">
+<link href="../css/materialize.min.css" rel="stylesheet" type="text/css">
+<link href="../css/swiper.css" rel="stylesheet" type="text/css">
+<link href="../css/swipebox.min.css" rel="stylesheet" type="text/css">
+<link href="../css/style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body ng-app="model_detail_angular"
+	ng-controller="modelDetailController" ng-init="displayModelDetail()">
+	<div class="m-scene" id="main">
+		<!-- Main Container -->
+
+		<!-- Sidebars -->
+		<!-- Right Sidebar -->
+
+		<!-- Left Sidebar -->
+		<ul id="slide-out-left" class="side-nav collapsible">
+			<li>
+				<div class="sidenav-header primary-color">
+					<div class="nav-social"></div>
+					<div class="nav-avatar">
+						<img class="circle avatar" id="profile_picture"
+							src="../img/user.jpg" alt="">
+						<div class="avatar-body">
+							<h3></h3>
+							<p id="user">Material Mobile</p>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li><a href="index.html" class="no-child"><i class="ion-android-home"></i>
+					HOME</a></li>
+			<li><a href="brand_list.html" class="no-child"><i
+					class="ion-android-playstore"></i> NEW</a></li>
+			<li><a href="user_profile.html" class="no-child"><i
+					class="ion-android-contact"></i> PROFILE</a></li>
+			<li><a href="annonce.html" class="no-child"><i
+					class="ion-model-s"></i> USED </a></li>
+			<li><a href="user_favoris.html" class="no-child"><i
+					class="ion-android-star"></i> FAVORIS</a></li>
+					<li><a href="user_post.html" class="no-child"><i
+					class="ion-clipboard"></i> MY POSTS</a></li>
+					<li><a href="savedAnn.html" class="no-child"><i
+					class="ion-ios-download"></i> SAVED POSTS</a></li>
+
+
+		</ul>
+
+
+		<!-- End of Sidebars -->
+
+		<!-- Page Content -->
+		<div id="content" class="page">
+
+			<!-- Toolbar -->
+			<div id="toolbar" class="primary-color">
+				<div class="open-left" id="open-left"
+					data-activates="slide-out-left">
+					<i class="ion-android-menu"></i>
+				</div>
+				<span class="title">{{model.name}}</span>
+			</div>
+
+			<!-- Hero Header -->
+			<div class="hero-header animated fadein">
+				<!-- Slider -->
+				<div class="swiper-container slider m-b-20">
+					<div class="swiper-wrapper">
+
+						<div class="swiper-slide" ng-repeat=" mp in modelPhotos">
+							<img src="{{mp.url}}" alt="">
+						</div>
+					</div>
+					<!-- Add Pagination -->
+
+				</div>
+				<div class="blog-image" ng-if="modelPhotos.length ==0">
+					<img src="{{model.picture_url}}" alt=""
+						style="box-shadow: 1px 1px 8px #e1e0e0;">
+				</div>
+				<!-- End of Slider -->
+
+				<!-- Floating Action Button -->
+
+			</div>
+
+
+			<!-- Article Content -->
+			<div class="animated fadeinup delay-1">
+				<div class="page-content">
+					<div class="post-author">
+						<img src="{{brand.logo}}" alt="" class="avatar circle"> <span></span>
+					</div>
+					<h2 class="uppercase">{{model.name}}</h2>
+
+					<h5>{{model.price_from}} DT</h5>
+
+					<div class="rating m-b-30" ng-init="getModelRating()">
+						<i class="ion-star active" ng-repeat=" i in getNumber(rating) track by $index"></i>
+						<i class="ion-star" ng-repeat=" i in getEmptyStars() track by $index"></i>
+						
+					</div>
+
+
+					<h5>Description</h5>
+					<p class="text-flow">{{model.description}}</p>
+					<a onclick=""
+						class="waves-effect waves-light btn-large accent-color width-100 m-b-20 animated bouncein delay-4"
+						href="gallery_model.html" ng-if="modelPhotos.length >0">PHOTO
+						GALLERY</a>
+				</div>
+				<div class="animated fadeinup" ng-init="getGammeByModel()"
+					style="box-shadow: 1px 1px 8px #e1e0e0;">
+					<div class="page-content">
+						<h2 class="uppercase">FINITIONS</h2>
+
+					</div>
+					<div class="blog-fullwidth animated fadeinup delay-1"
+						ng-repeat="g in gammes">
+
+						<div class="blog-header">
+							<img class="avatar circle" src="{{brand.logo}}" alt="">
+							<div class="blog-author">
+								<span></span> <span class="small"></span>
+							</div>
+						</div>
+						<div class="blog-image">
+							<img src="{{g.picture_url}}" alt="">
+							<div class="opacity-overlay-top"></div>
+						</div>
+						<div class="blog-preview p-20">
+							<h4 class="uppercase">{{g.gamme}}</h4>
+							<h5>{{g.prix}} DT</h5>
+							<p>{{g.description}}</p>
+							<a href="#" ng-click="displayGammeDetail(g)"
+								class="waves-effect waves-light btn accent-color">Read</a>
+						</div>
+					</div>
+				</div>
+
+				<!-- Footer -->
+				<footer class="page-footer primary-color">
+					<div class="container">
+						<div class="row">
+							<div class="col s12">
+								<p class="center-align grey-text text-lighten-4"></p>
+								<div class="center-align"></div>
+							</div>
+						</div>
+					</div>
+					<div class="footer-copyright blue darken-1">
+						<div class="container"> <a class="grey-text text-lighten-4 right" href="#!"></a>
+						</div>
+					</div>
+				</footer>
+			</div>
+
+
+		</div>
+		<!-- End of Page Content -->
+
+	</div>
+	<!-- End of Page Container -->
+	<script type="text/javascript">
+		var profilePicture = document.getElementById('profile_picture');
+		var username = document.getElementById('user');
+		var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+		profilePicture.src = currentUser.profilePictureUri;
+		username.innerHTML = currentUser.email;
+	</script>
+	<script src="../js/app/angular/angular.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.4.2/angular-ui-router.js"></script>
+	<script type="text/javascript" src="../js/app/utils/URLS.js"></script>
+	<script type="text/javascript" src="../js/app/Entities/Model.js"></script>
+	<script type="text/javascript"
+		src="../js/app/angular/model_detail_angular.js"></script>
+	<script src="../js/assets/jquery-2.1.0.min.js"></script>
+	<script src="../js/assets/jquery.swipebox.min.js"></script>
+	<script src="../js/assets/materialize.min.js"></script>
+	<script src="../js/assets/swiper.min.js"></script>
+	<script src="../js/assets/jquery.mixitup.min.js"></script>
+	<script src="../js/assets/masonry.min.js"></script>
+	<script src="../js/assets/chart.min.js"></script>
+	<script src="../js/assets/functions.js"></script>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<title>Halo - Mobile Template</title>
+<meta content="IE=edge" http-equiv="x-ua-compatible">
+<meta
+	content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"
+	name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="yes" name="apple-touch-fullscreen">
+
+<script type="text/javascript">
+	window.addEventListener('tizenhwkey', function onTizenHwKey(e) {
+		if (e.keyName === 'back') {
+			document.getElementById('modal3').setAttribute("style",
+					"z-index: 1003; display: block; opacity: 1; bottom: 0px;");
+
+		}
+	});
+</script>
+
+
+<!-- firebase -->
+<script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
+<script>
+	var config = {
+		apiKey : "AIzaSyCjzC9W7xXa0WemOZ76r155Ua_5j1_ytRE",
+		authDomain : "carsstore-1c8c5.firebaseapp.com",
+		databaseURL : "https://carsstore-1c8c5.firebaseio.com",
+		storageBucket : "carsstore-1c8c5.appspot.com",
+		messagingSenderId : "1044306183712"
+	};
+	firebase.initializeApp(config);
+</script>
+<script type="text/javascript">
+	window.addEventListener('tizenhwkey', function onTizenHwKey(e) {
+		if (e.keyName === 'back') {
+			window.history.back();
+
+		}
+	});
+</script>
+
+
+<!-- Fonts -->
+<link
+	href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700'
+	rel='stylesheet' type='text/css'>
+<!-- Icons -->
+<link
+	href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
+	media="all" rel="stylesheet" type="text/css">
+<!-- Styles -->
+<link href="../css/keyframes.css" rel="stylesheet" type="text/css">
+<link href="../css/materialize.min.css" rel="stylesheet" type="text/css">
+<link href="../css/swiper.css" rel="stylesheet" type="text/css">
+<link href="../css/swipebox.min.css" rel="stylesheet" type="text/css">
+<link href="../css/style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body ng-app="annonces_angular" ng-controller="annonceController"
+	ng-init="loadAnnonces()">
+	<div class="m-scene" id="main" ng-init="loadAnnoncePhotos()">
+		<!-- Main Container -->
+
+		<!-- Sidebars -->
+		<!-- Right Sidebar -->
+
+		<!-- Left Sidebar -->
+		<ul id="slide-out-left" class="side-nav collapsible">
+			<li>
+				<div class="sidenav-header primary-color">
+					<div class="nav-social"></div>
+					<div class="nav-avatar">
+						<img class="circle avatar" id="profile_picture"
+							src="../img/user.jpg" alt="">
+						<div class="avatar-body">
+							<h3></h3>
+							<p id="user">Material Mobile</p>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li><a href="index.html" class="no-child"><i
+					class="ion-android-home"></i> HOME</a></li>
+			<li><a href="brand_list.html" class="no-child"><i
+					class="ion-android-playstore"></i> NEW</a></li>
+			<li><a href="user_profile.html" class="no-child"><i
+					class="ion-android-contact"></i> PROFILE</a></li>
+			<li><a href="annonce.html" class="no-child"><i
+					class="ion-model-s"></i> USED </a></li>
+			<li><a href="user_favoris.html" class="no-child"><i
+					class="ion-android-star"></i> FAVORIS</a></li>
+					<li><a href="user_post.html" class="no-child"><i
+					class="ion-clipboard"></i> MY POSTS</a></li>
+					<li><a href="savedAnn.html" class="no-child"><i
+					class="ion-ios-download"></i> SAVED POSTS</a></li>
+
+
+		</ul>
+
+		<!-- End of Sidebars -->
+		
+		
+
+		<!-- Page Content -->
+		<div id="content" class="page">
+			<div class="grey-blue overflow">
+
+				<!-- Toolbar -->
+				<div id="toolbar" class="primary-color">
+					<div class="open-left" id="open-left"
+						data-activates="slide-out-left">
+						<i class="ion-android-menu"></i>
+					</div>
+					<span class="title">Vehicule posts</span>
+
+				</div>
+
+				<!-- Annonces card view -->
+
+				<div class="blog-card animated fadein delay-1"
+					ng-repeat="annonce in annonces">
+					<div class="blog-header">
+						<img class="avatar circle" ng-src="{{user.profilePictureUri}}"
+							alt="">
+						<div class="blog-author">
+							<span ng-init="loadUsers(annonce.user_id)">{{user.user_first_name}} {{user.user_last_name}}</span>
+							<span class="small">{{annonce.date_publication}}</span>
+						</div>
+					</div>
+
+
+
+					<!-- Slider -->
+					<div class="swiper-container slider m-b-20">
+						<div class="swiper-wrapper" >
+						
+						
+							<div class="swiper-slide"  ng-repeat="p in photos "
+								ng-if="p.annonce_id == annonce.id">
+								<img ng-src="{{p.picture_url}}" alt="">
+							</div>
+						
+
+
+						</div>
+
+					</div>
+					<!-- End of Slider -->
+					
+					<div class="blog-preview p-20">
+						<h4 class="uppercase">{{annonce.category}} {{annonce.model}}
+							{{annonce.annee}}</h4>
+						<p>{{annonce.autre_description}}</p>
+						<a href="#" class="waves-effect waves-light btn accent-color"
+							ng-click="annonceDetail(annonce)">Details</a>
+					</div>
+				</div>
+
+
+
+				<!-- Floating Action Button -->
+				<div class="floating-button page-fab animated bouncein delay-3">
+					<a
+						class="btn-floating btn-large waves-effect waves-light accent-color btn z-depth-1"
+						href="add_annonce.html"> <i class="ion-android-add"></i>
+					</a>
+				</div>
+
+
+			</div>
+			<footer class="page-footer primary-color">
+				<div class="container">
+					<div class="row">
+						<div class="col s12">
+							<p class="center-align grey-text text-lighten-4"></p>
+							<div class="center-align">
+								<!-- <i class="ion-social-facebook m-10 white-text"></i>
+                  <i class="ion-social-twitter m-10 white-text"></i>
+                  <i class="ion-social-pinterest m-10 white-text"></i>
+                  <i class="ion-social-dribbble m-10 white-text"></i> -->
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="footer-copyright blue darken-1">
+					<div class="container">
+						<a class="grey-text text-lighten-4 right" href="#!"></a>
+					</div>
+				</div>
+			</footer>
+			<!-- End of Page Content -->
+		</div>
+
+	</div>
+	<!-- End of Page Container -->
+
+
+	<script src="../js/assets/jquery-2.1.0.min.js"></script>
+	<script src="../js/assets/jquery.swipebox.min.js"></script>
+	<script src="../js/assets/materialize.min.js"></script>
+	<script src="../js/assets/swiper.min.js"></script>
+	<script src="../js/assets/jquery.mixitup.min.js"></script>
+	<script src="../js/assets/masonry.min.js"></script>
+	<script src="../js/assets/chart.min.js"></script>
+	<script src="../js/assets/functions.js"></script>
+	<script src="../js/app/angular/angular.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.4.2/angular-ui-router.js"></script>
+	<script type="text/javascript" src="../js/app/utils/URLS.js"></script>
+	<script type="text/javascript"
+		src="../js/app/angular/annonces_angular.js"></script>
+	<script type="text/javascript">
+		var profilePicture = document.getElementById('profile_picture');
+		var username = document.getElementById('user');
+		var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+		profilePicture.src = currentUser.profilePictureUri;
+		username.innerHTML = currentUser.email;
+	</script>
+
+
+</body>
+</html>
